@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  backend:
+    # image: vega-backend
+    build:
+      context: vega
+      dockerfile: vega-app.dockerfile
+    ports:
+    - "80:8080"
+    depends_on:
+      - database
+  database:
+    build:
+      context: .
+      dockerfile: mysql.dockerfile
+    environment:
+      MYSQL_DATABASE: 'spring_db'
+      MYSQL_USER: 'spring_user'
+      MYSQL_PASSWORD: 'spring_password'
+      MYSQL_ROOT_PASSWORD: 'root_password'
+    ports:
+    - "81:3306"
